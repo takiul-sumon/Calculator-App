@@ -4,11 +4,8 @@ class buildButton extends StatelessWidget {
   String text;
   Color? color;
   VoidCallback onClick;
-  buildButton({
-    super.key,
-    required this.text,
-    required this.onClick,this.color
-  });
+  buildButton(
+      {super.key, required this.text, required this.onClick,  this.color});
   @override
   Widget build(BuildContext context) {
     return Expanded(
