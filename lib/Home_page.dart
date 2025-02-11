@@ -24,13 +24,14 @@ class _HomePageState extends State<HomePage> {
         num2 = 0;
       } else if (button == "=") {
         num2 = double.parse(_input.toString());
+        // num2 = double.parse(_output.toString());
+
         if (operator == '+') {
           _output = (num1 + num2).toString();
         } else if (operator == '-') {
           _output = (num1 - num2).toString();
         } else if (operator == 'x') {
           _output = (num1 * num2).toString();
-        } else if (operator == '.') {
         } else if (operator == '÷') {
           _output = (num2 != 0) ? (num1 / num2).toString() : 'Error';
         }
@@ -42,11 +43,8 @@ class _HomePageState extends State<HomePage> {
       } else {
         _input += button;
         _output = _input;
-                print(_output);
-
       }
     });
-    print(_output);
   }
 
   @override
@@ -64,9 +62,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
+          Row(mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 num1.toString(),
@@ -112,11 +110,12 @@ class _HomePageState extends State<HomePage> {
                 _output,
                 style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
             ],
           ),
+          SizedBox(height: 100,),
           Row(
             children: [
               buildButton(
