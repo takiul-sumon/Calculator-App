@@ -11,39 +11,39 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _output = '0';
   String _input = '';
-  String operator = '';
+  String operator = '+';
   double num1 = 0;
   double num2 = 0;
   void buttonPressed(String button) {
     setState(() {
       if (button == 'c') {
-         _output = '0';
-         _input = '';
-         operator = '';
-         num1 = 0;
-         num2 = 0;
+        _output = '0';
+        _input = '';
+        operator = '+';
+        num1 = 0;
+        num2 = 0;
       } else if (button == "=") {
         num2 = double.parse(_input.toString());
         if (operator == '+') {
           _output = (num1 + num2).toString();
         } else if (operator == '-') {
           _output = (num1 - num2).toString();
-        } else if (operator == '*') {
+        } else if (operator == 'x') {
           _output = (num1 * num2).toString();
-        }
-        else if(operator=='.'){
-
+        } else if (operator == '.') {
         } else if (operator == '÷') {
-          _output = (num2 != 0) ? (num2 / num1).toString() : 'Error';
+          _output = (num2 != 0) ? (num1 / num2).toString() : 'Error';
         }
         _input = _output;
-      } else if (['+', '-', '*', '/'].contains(button)) {
+      } else if (['+', '-', 'x', '÷'].contains(button)) {
         num1 = double.parse(_input);
         operator = button;
         _input = '';
       } else {
         _input += button;
         _output = _input;
+                print(_output);
+
       }
     });
     print(_output);
@@ -66,15 +66,56 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Text(
-              _output,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
+          Row(
+            children: [
+              Text(
+                num1.toString(),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                operator,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                num2.toString(),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                '=',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                _output,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
           Row(
             children: [
@@ -159,9 +200,10 @@ class _HomePageState extends State<HomePage> {
                 text: '+',
                 onClick: () => buttonPressed('+'),
                 color: Colors.orange,
-              ),buildButton(
+              ),
+              buildButton(
                 text: '.',
-                onClick: () => buttonPressed('c'),
+                onClick: () => buttonPressed('.'),
                 color: Colors.orange,
               ),
             ],
