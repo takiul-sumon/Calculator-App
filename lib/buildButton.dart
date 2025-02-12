@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class buildButton extends StatelessWidget {
   String text;
-  Color? color;
+  Color ? color;
   VoidCallback onClick;
   buildButton(
       {super.key, required this.text, required this.onClick,  this.color});

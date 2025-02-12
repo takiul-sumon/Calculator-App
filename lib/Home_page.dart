@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   String operator = '+';
   double num1 = 0;
   double num2 = 0;
+  List<Map<String, String>> res = [];
   void buttonPressed(String button) {
     setState(() {
       if (button == 'c') {
@@ -45,6 +46,19 @@ class _HomePageState extends State<HomePage> {
         _output = _input;
       }
     });
+    addResult(num1, num2);
+    print(res);
+  }
+
+  addResult(double num1, double num2) {
+    if (num1 != 0 && num2 != 0) {
+      res.add({
+        '1': num1.toString(),
+        '2': num2.toString(),
+        '3': _output,
+        '4': operator
+      });
+    }
   }
 
   @override
@@ -64,7 +78,85 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center,
+          Row(children: [
+            IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    backgroundColor: Colors.black,
+                    context: context,
+                    builder: (context) {
+                      return ListView.builder(
+                        itemCount: res.length,
+                        itemBuilder: (context, index) {
+                          final des = res[index];
+                          print(des['2']);
+                          return Row(
+                            children: [
+                              Text(
+                                "History",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                des['1'].toString(),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                des['4'].toString(),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                des['2'].toString(),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                '=',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                des['3'].toString(),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+                icon: Icon(Icons.history))
+          ]),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 num1.toString(),
@@ -73,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Text(
@@ -115,7 +207,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          SizedBox(height: 100,),
+          SizedBox(
+            height: 100,
+          ),
           Row(
             children: [
               buildButton(
